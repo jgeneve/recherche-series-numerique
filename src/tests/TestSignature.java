@@ -13,4 +13,10 @@ public class TestSignature extends TestCase {
 	            Arrays.asList(4, 4, 2, 2, 3, 5, 5, 6, 3, 1, 1, 2, 2, 2, 2, 2, 2, 1))));
 	}
 	
+
+	public void testSignatureNumberOfValue() throws Exception {
+		assertEquals(17, Main.getSignature(new ArrayList<>(
+	            Arrays.asList(4, 4, 2, 2, 3, 5, 5, 6, 3, 1, 1, 2, 2, 2, 2, 2, 2, 1))).length());
+	}
+	
 }
