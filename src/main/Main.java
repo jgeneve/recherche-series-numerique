@@ -2,69 +2,56 @@ package main;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
 public class Main {
 
-	private static Pattern pattern;
-	private static Matcher matcher;
-	
-
 	public static void main(String[] args) {
-
-//		System.out.println(getSignature(new ArrayList<>(
-//	            Arrays.asList(4, 4, 2, 2, 3, 5, 5, 6, 3, 1, 1, 2, 2, 2, 2, 2, 2, 1))));
-		
-		
 		// TEST PEAK REGEX
-		ArrayList<Integer> serie = new ArrayList<>(Arrays.asList(4, 4, 2, 2, 3, 5, 5, 6, 3, 1, 1, 2, 2, 2, 2, 2, 2, 1));
+		List<Integer> serie = Arrays.asList(7,5,5,1,4,5,2,2,3,5,6,2,3,3,3,1);
+		Integer result = min_width_peak(serie);		
+		System.out.println(result);
+	}
+	
+	
+	//TODO remove
+	public static Integer min_width_peak(List<Integer> serie) {
+		List<List<Integer>> resultsPattern = applyPattern(Patterns.PEAK, serie);
+		List<Integer> resultsFeature = Feature.width(resultsPattern);
+		Integer resultAggregator = Aggregator.min(resultsFeature);
+		return resultAggregator;
+	}
+	
+	
+	
+	public static List<List<Integer>> applyPattern(Patterns pattern, List<Integer> serie) {
+		// On transforme la liste d'integer en signature
 		String sig = getSignature(serie);
 		
-		pattern = Pattern.compile("<(=|<)*(>|=)*>");
-		matcher = pattern.matcher(sig);
+		Pattern p = Pattern.compile(pattern.getRegex());
+		Matcher matcher = p.matcher(sig);
 
+		List<List<Integer>> results = new ArrayList<List<Integer>>();
+		// Pour chaque pattern trouvé dans la série
 		while(matcher.find()) {
-        System.out.print("Start index: " + (matcher.start()));
-        System.out.print(" End index: " + (matcher.end()));
-        System.out.println(" Found: " + matcher.group());
-  
-        System.out.println(serie.subList(matcher.start(), matcher.end()+1)); // +1 because sublist end is exclusif
+			// On récupère la position du premier / dernier élément du pattern dans la série
+			int start = matcher.start();
+			int end = matcher.end();
+			// On récupère l'offset de départ / fin correspondant à la définition du pattern
+			int patternStartOffset = pattern.getStart();
+			int patternEndOffset = pattern.getEnd();
+			
+			// On récupère la sous-série N trouvé par le regex en applicant les offsets
+			List<Integer> sublist = serie.subList(start+patternStartOffset, end-patternEndOffset+1); // +1 car le paramètre de fin de sublist est EXCLUSIF
+			results.add(sublist);
 		}
-		
-		
-//		pattern = Pattern.compile("<(=|<)*(>|=)*>");
-//		ArrayList<Integer> serie = new ArrayList<>(Arrays.asList(7,5,5,1,4,5,2,2,3,5,6,2,3,3,3,1));
-//		String sig = getSignature(serie);
-//		matcher = pattern.matcher(sig);
-//		while(matcher.find()) {
-//        System.out.print("Start index: " + (matcher.start()));
-//        System.out.print(" End index: " + (matcher.end()));
-//        System.out.println(" Found: " + matcher.group());
-//  
-//        System.out.println(serie.subList(matcher.start(), matcher.end()+1)); // +1 because sublist end is exclusif
-//		}
-		
-
-//		pattern = Pattern.compile("=+");
-//		ArrayList<Integer> serie = new ArrayList<>(Arrays.asList(3,1,1,4,5,5,5,6,2,2,4,4,3,2,1,1));
-//		String sig = getSignature(serie);
-//		System.out.println(sig);
-//		matcher = pattern.matcher(sig);
-//		
-//		ArrayList<Integer> res;
-//		while(matcher.find()) {
-//	        System.out.print("Start index: " + (matcher.start()));
-//	        System.out.print(" End index: " + (matcher.end()));
-//	        System.out.println(" Found: " + matcher.group());
-//	  
-//	        System.out.println(serie.subList(matcher.start(), matcher.end()+1)); // +1 because sublist end is exclusif
-//		}
-		
+		return results;
 	}
 
-    public static String getSignature(ArrayList<Integer> serie) {
+    public static String getSignature(List<Integer> serie) {
         String res = "";
         for (int i = 1; i < serie.size(); i++) {
             if (serie.get(i - 1) > serie.get(i)) {
