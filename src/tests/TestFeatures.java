@@ -22,4 +22,33 @@ public class TestFeatures extends TestCase {
 		
 		assertEquals(expected, Feature.width(resultsPattern));
 	}
+	
+
+	public void testMinFeature() throws Exception {
+		List<List<Integer>> resultsPattern = new ArrayList<List<Integer>>();
+		resultsPattern.add(Arrays.asList(4,5));
+		resultsPattern.add(Arrays.asList(3,5,6));
+		resultsPattern.add(Arrays.asList(3,3,3));
+		
+		List<Integer> expected = new ArrayList<>();
+		expected.add(4);		
+		expected.add(3);		
+		expected.add(3);		
+		
+		assertEquals(expected, Feature.min(resultsPattern));
+	}
+
+	public void testMaxFeature() throws Exception {
+		List<List<Integer>> resultsPattern = new ArrayList<List<Integer>>();
+		resultsPattern.add(Arrays.asList(4,5));
+		resultsPattern.add(Arrays.asList(3,5,6));
+		resultsPattern.add(Arrays.asList(3,3,3));
+		
+		List<Integer> expected = new ArrayList<>();
+		expected.add(5);		
+		expected.add(6);		
+		expected.add(3);		
+		
+		assertEquals(expected, Feature.max(resultsPattern));
+	}
 }
