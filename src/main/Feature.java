@@ -3,13 +3,16 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.squareup.javapoet.*;
+import javax.lang.model.element.Modifier;
+
 public class Feature {
 
 	// WIDTH
 	public static List<Integer> width(List<List<Integer>> resultsPattern) {
 		List<Integer> results = new ArrayList<>();
 		
-		Integer listSize;
+		Integer listSize; 
 		for (List<Integer> resultPattern : resultsPattern) {
 			listSize = resultPattern.size();
 			results.add(listSize);
@@ -23,9 +26,9 @@ public class Feature {
 		List<Integer> results = new ArrayList<>();
 		
 		Integer min;
-		for (List<Integer> serieInPattern : resultsPattern) {
+		for (List<Integer> resultPattern : resultsPattern) {
 			min = Integer.MAX_VALUE;
-			for (int value : serieInPattern) {
+			for (int value : resultPattern) {
 				if (value < min) {
 					min = value;
 				}
@@ -40,9 +43,9 @@ public class Feature {
 		List<Integer> results = new ArrayList<>();
 		
 		Integer max;
-		for (List<Integer> serieInPattern : resultsPattern) {
+		for (List<Integer> resultPattern : resultsPattern) {
 			max = Integer.MIN_VALUE;
-			for (int value : serieInPattern) {
+			for (int value : resultPattern) {
 				if (value > max) {
 					max = value;
 				}
@@ -56,8 +59,8 @@ public class Feature {
 	public static List<Integer> one(List<List<Integer>> resultsPattern) {
 		List<Integer> results = new ArrayList<>();
 		
-		for (List<Integer> serieInPattern : resultsPattern) {
-			results.add(serieInPattern.get(0));
+		for (List<Integer> resultPattern : resultsPattern) {
+			results.add(resultPattern.get(0));
 		}
 		return results;
 	}

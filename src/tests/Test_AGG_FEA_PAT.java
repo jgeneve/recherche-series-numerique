@@ -1,10 +1,6 @@
 package tests;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import junit.framework.TestCase;
-import main.Main;
 
 public class Test_AGG_FEA_PAT extends TestCase {
 

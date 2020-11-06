@@ -1,52 +1,49 @@
 package main;
 
-public enum Patterns {
-//	BUMP_ON_DECREASING_SEQUENCE("bump_on_decreasing_sequence", ">><>>",2,1),
-//	DIP_ON_INCREASING_SEQUENCE("dip_on_increasing_sequence", "<<><<",2,1),
-	DECREASING("decreasing", ">",0,0),
-	DECREASING_SEQUENCE("decreasing_sequence", ">(>|=)*>|>",0,0),
-	DECREASING_TERRACE("decreasing_terrace", ">=+>",0,0),
-//	GORGE("gorge", "(>|>(=|>)^*>)(<|<(=|<)^*<)",0,0),
-	INCREASING("increasing", "<",0,0),
-	INCREASING_SEQUENCE("increasing_sequence", "<(<|=)*<|<",0,0),
-	INCREASING_TERRACE("increasing_terrace", "<=+<",0,0),
-	INFLEXION("inflexion", "<(<|=)*>|>(>|=)*<",1,1),
-	PEAK("peak", "<(=|<)*(>|=)*>",1,1),
-//	PLAIN("plain", ">=*<",1,1),
-	PLATEAU("plateau", "<=*>",1,1),
-//	PROPER_PLAIN("proper_plain", ">=+<",1,1),
-	PROPER_PLATEAU("proper_plateau", "<=+>",1,1),
-	STEADY("steady", "=",0,0),
-	STEADY_SEQUENCE("steady_sequence", "=+",0,0),
-	STRICTLY_DECREASING_SEQUENCE("strictly_decreasing_sequence", ">+",0,0),
-	STRICTLY_INCREASING_SEQUENCE("strictly_increasing_sequence", "<+",0,0),
-	SUMMIT("summit", "(<|<(=|<)*<)(>|>(=|>)*>)",1,1),
-//	VALLEY("valley", ">(=|>)*(<|=)*<",1,1),
-	ZIGZAG("zigzag", "(<>)+(<|<>)|(><)+(>|><)",1,1);
-//	ZIGZAG2("zigzag2", "(<>|<<>|<>>|<<>>)+(<|<<|<>|<<>|<>>|<<>>)|(><|>><|><<|>><<)+(>|>>|><|>><|><<|>><<)",1,1);
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import enums.PatternsEnum;
+
+public class Patterns { 
 	
-	private final String name;
-    private final String regex;
-    private final int start;
-    private final int end;
+	public static List<List<Integer>> applyPattern(PatternsEnum pattern, List<Integer> serie) {
+		// On transforme la liste d'integer en signature
+		String sig = getSignature(serie); 
+		
+		Pattern p = Pattern.compile(pattern.getRegex());
+		Matcher matcher = p.matcher(sig);
 
-    Patterns(String name, String regex, int start,int end) {
-        this.name = name;
-        this.regex = regex;
-        this.start = start;
-        this.end = end;
-    }
-
-    public String getName() {
-        return name;
-    }
-    public String getRegex() {
-        return regex;
-    }
-    public int getStart() {
-        return start;
-    }
-    public int getEnd() {
-        return end;
+		List<List<Integer>> results = new ArrayList<List<Integer>>();
+		// Pour chaque pattern trouvé dans la série
+		while(matcher.find()) {
+			// On récupère la position du premier / dernier élément du pattern dans la série
+			int start = matcher.start();
+			int end = matcher.end();
+			// On récupère l'offset de départ / fin correspondant à la définition du pattern
+			int patternStartOffset = pattern.getStart();
+			int patternEndOffset = pattern.getEnd();
+			
+			// On récupère la sous-série N trouvé par le regex en applicant les offsets
+			List<Integer> sublist = serie.subList(start+patternStartOffset, end-patternEndOffset+1); // +1 car le paramètre de fin de sublist est EXCLUSIF
+			results.add(sublist);
+		}
+		return results;
+	}
+	
+	public static String getSignature(List<Integer> serie) {
+        String res = "";
+        for (int i = 1; i < serie.size(); i++) {
+            if (serie.get(i - 1) > serie.get(i)) {
+                res += ">";
+            } else if (serie.get(i - 1) < serie.get(i)) {
+                res += "<";
+            } else {
+                res += "=";
+            }
+        }
+        return res;
     }
 }
