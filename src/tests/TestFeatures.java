@@ -24,6 +24,18 @@ public class TestFeatures extends TestCase {
 		assertEquals(expected, Feature.width(resultsPattern));
 	}
 	
+	// WIDTH
+		public void testWidthNull() throws Exception {
+			List<List<Integer>> resultsPattern = new ArrayList<List<Integer>>();
+			resultsPattern.add(Arrays.asList());
+			resultsPattern.add(Arrays.asList(3,5,6));
+			resultsPattern.add(Arrays.asList(3,3,3));	
+			
+			assertEquals(null, Feature.width(resultsPattern));
+		}
+	
+	
+	
 	// MIN
 	public void testMinFeature() throws Exception {
 		List<List<Integer>> resultsPattern = new ArrayList<List<Integer>>();
