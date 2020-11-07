@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import enums.PatternsEnum;
 import junit.framework.TestCase;
-import main.Main;
 import main.Patterns;
 
 public class TestPatterns extends TestCase {
@@ -18,6 +18,6 @@ public class TestPatterns extends TestCase {
 		
 		List<Integer> serie = Arrays.asList(7,5,5,1,4,5,2,2,3,5,6,2,3,3,3,1);
 
-		assertEquals(expected, Main.applyPattern(Patterns.PEAK, serie));
+		assertEquals(expected, Patterns.applyPattern(PatternsEnum.PEAK, serie));
 	}
 }

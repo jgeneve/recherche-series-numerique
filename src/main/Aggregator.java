@@ -3,7 +3,7 @@ package main;
 import java.util.List;
 
 public class Aggregator {
-
+	
 	public static Integer min(List<Integer> features) {
 		int min = Integer.MAX_VALUE;
 		for ( int feature : features) {
