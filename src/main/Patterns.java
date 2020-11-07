@@ -27,7 +27,7 @@ public class Patterns {
 			int patternEndOffset = pattern.getEnd();
 			
 			// On récupère la sous-série N trouvé par le regex en applicant les offsets
-			List<Integer> sublist = serie.subList(start+patternStartOffset, end-patternEndOffset+1); // +1 car le paramètre de fin de sublist est EXCLUSIF
+			List<Integer> sublist = serie.subList(start+patternStartOffset, end+1-patternEndOffset); // +1 car le paramètre de fin de sublist est EXCLUSIF
 			results.add(sublist);
 		}
 		return results;

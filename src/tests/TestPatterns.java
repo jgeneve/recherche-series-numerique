@@ -181,8 +181,10 @@ public class TestPatterns extends TestCase {
 		List<List<Integer>> expected = new ArrayList<List<Integer>>();
 		expected.add(Arrays.asList(1));
 		expected.add(Arrays.asList(2));
-		expected.add(Arrays.asList(3,3));
-		expected.add(Arrays.asList(2,2));
+		expected.add(Arrays.asList(3));
+		expected.add(Arrays.asList(3));
+		expected.add(Arrays.asList(2));
+		expected.add(Arrays.asList(2));
 		expected.add(Arrays.asList(3));
 		
 		List<Integer> serie = Arrays.asList(1,1,4,2,2,3,3,3,4,2,2,2,4,1,3,3);
