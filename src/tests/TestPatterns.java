@@ -22,10 +22,11 @@ public class TestPatterns extends TestCase {
 	
 	public void testDecreasingPattern() throws Exception {
 		List<List<Integer>> expected = new ArrayList<List<Integer>>();
-		expected.add(Arrays.asList(2));
-		expected.add(Arrays.asList(4));
+		expected.add(Arrays.asList(2,1));
+		expected.add(Arrays.asList(4,3));
 		expected.add(Arrays.asList(3,2));
-		expected.add(Arrays.asList(4));
+		expected.add(Arrays.asList(2,1));
+		expected.add(Arrays.asList(4,3));
 		
 		List<Integer> serie = Arrays.asList(1,2,1,1,2,4,4,3,3,2,1,1,2,4,3,3);
 
@@ -34,9 +35,9 @@ public class TestPatterns extends TestCase {
 
 	public void testDecreasingSequencePattern() throws Exception {
 		List<List<Integer>> expected = new ArrayList<List<Integer>>();
-		expected.add(Arrays.asList(4));
-		expected.add(Arrays.asList(4,3,3,2));
-		expected.add(Arrays.asList(3));
+		expected.add(Arrays.asList(4,1));
+		expected.add(Arrays.asList(4,3,3,2,1));
+		expected.add(Arrays.asList(3,2));
 		
 		List<Integer> serie = Arrays.asList(3,4,1,1,2,4,4,3,3,2,1,1,2,3,2,2);
 
@@ -65,8 +66,8 @@ public class TestPatterns extends TestCase {
 	
 	public void testGorgePattern() throws Exception {
 		List<List<Integer>> expected = new ArrayList<List<Integer>>();
-		expected.add(Arrays.asList(1,2,2));
-		expected.add(Arrays.asList(2,1,2,3));
+		expected.add(Arrays.asList(1,2,2,3));
+		expected.add(Arrays.asList(2,1,2,3,4));
 		
 		List<Integer> serie = Arrays.asList(1,3,1,2,2,3,3,2,1,1,3,2,1,2,3,4);
 
@@ -75,10 +76,11 @@ public class TestPatterns extends TestCase {
 
 	public void testIncreasingPattern() throws Exception {
 		List<List<Integer>> expected = new ArrayList<List<Integer>>();
-		expected.add(Arrays.asList(2));
-		expected.add(Arrays.asList(1));
+		expected.add(Arrays.asList(2,4));
+		expected.add(Arrays.asList(1,2));
 		expected.add(Arrays.asList(2,3));
-		expected.add(Arrays.asList(1));
+		expected.add(Arrays.asList(3,4));
+		expected.add(Arrays.asList(1,3));
 		
 		List<Integer> serie = Arrays.asList(3,2,4,4,2,1,1,2,2,3,4,4,3,1,3,3);
 
@@ -87,9 +89,9 @@ public class TestPatterns extends TestCase {
 
 	public void testIncreasingSequencePattern() throws Exception {
 		List<List<Integer>> expected = new ArrayList<List<Integer>>();
-		expected.add(Arrays.asList(1));
-		expected.add(Arrays.asList(1,2,2,3));
-		expected.add(Arrays.asList(1));
+		expected.add(Arrays.asList(1,3));
+		expected.add(Arrays.asList(1,2,2,3,4));
+		expected.add(Arrays.asList(1,3));
 		
 		List<Integer> serie = Arrays.asList(2,1,3,3,2,1,1,2,2,3,4,4,3,1,3,3);
 
@@ -179,13 +181,13 @@ public class TestPatterns extends TestCase {
 
 	public void testSteadyPattern() throws Exception {
 		List<List<Integer>> expected = new ArrayList<List<Integer>>();
-		expected.add(Arrays.asList(1));
-		expected.add(Arrays.asList(2));
-		expected.add(Arrays.asList(3));
-		expected.add(Arrays.asList(3));
-		expected.add(Arrays.asList(2));
-		expected.add(Arrays.asList(2));
-		expected.add(Arrays.asList(3));
+		expected.add(Arrays.asList(1,1));
+		expected.add(Arrays.asList(2,2));
+		expected.add(Arrays.asList(3,3));
+		expected.add(Arrays.asList(3,3));
+		expected.add(Arrays.asList(2,2));
+		expected.add(Arrays.asList(2,2));
+		expected.add(Arrays.asList(3,3));
 		
 		List<Integer> serie = Arrays.asList(1,1,4,2,2,3,3,3,4,2,2,2,4,1,3,3);
 
@@ -194,11 +196,11 @@ public class TestPatterns extends TestCase {
 	
 	public void testSteadySequencePattern() throws Exception {
 		List<List<Integer>> expected = new ArrayList<List<Integer>>();
-		expected.add(Arrays.asList(1));
-		expected.add(Arrays.asList(3,3));
-		expected.add(Arrays.asList(2));
-		expected.add(Arrays.asList(4));
-		expected.add(Arrays.asList(1));
+		expected.add(Arrays.asList(1,1));
+		expected.add(Arrays.asList(3,3,3));
+		expected.add(Arrays.asList(2,2));
+		expected.add(Arrays.asList(4,4));
+		expected.add(Arrays.asList(1,1));
 		
 		List<Integer> serie = Arrays.asList(3,1,1,2,3,3,3,4,2,2,4,4,3,2,1,1);
 
@@ -207,9 +209,9 @@ public class TestPatterns extends TestCase {
 	
 	public void testStrictlyDecreasingSequencePattern() throws Exception {
 		List<List<Integer>> expected = new ArrayList<List<Integer>>();
+		expected.add(Arrays.asList(4,3, 1));
+		expected.add(Arrays.asList(4,3,2));
 		expected.add(Arrays.asList(4,3));
-		expected.add(Arrays.asList(4,3));
-		expected.add(Arrays.asList(4));
 		
 		List<Integer> serie = Arrays.asList(2,2,4,3,1,1,2,3,3,4,4,3,2,2,4,3);
 
@@ -218,9 +220,9 @@ public class TestPatterns extends TestCase {
 	
 	public void testStrictlyIncreasingSequencePattern() throws Exception {
 		List<List<Integer>> expected = new ArrayList<List<Integer>>();
-		expected.add(Arrays.asList(3));
-		expected.add(Arrays.asList(1,2,3,4));
-		expected.add(Arrays.asList(1,2));
+		expected.add(Arrays.asList(3,5));
+		expected.add(Arrays.asList(1,2,3,4,5));
+		expected.add(Arrays.asList(1,2,3));
 		
 		List<Integer> serie = Arrays.asList(4,3,5,5,2,1,1,2,3,4,5,5,3,1,2,3);
 

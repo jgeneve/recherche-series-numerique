@@ -11,23 +11,39 @@ public class Patterns {
 	
 	public static List<List<Integer>> applyPattern(PatternsEnum pattern, List<Integer> serie) {
 		// On transforme la liste d'integer en signature
-		String sig = getSignature(serie); 
+		String sig = getSignature(serie);
 		
 		Pattern p = Pattern.compile(pattern.getRegex());
 		Matcher matcher = p.matcher(sig);
 
+		System.out.println("====> " + pattern.getName());
+		System.out.println(serie.toString());
+		System.out.println(sig.toString());
 		List<List<Integer>> results = new ArrayList<List<Integer>>();
-		// Pour chaque pattern trouvé dans la série
+		
+		// Pour chaque pattern trouvÃ© dans la sÃ©rie
 		while(matcher.find()) {
-			// On récupère la position du premier / dernier élément du pattern dans la série
+			// On rÃ©cupÃ¨re la position du premier / dernier Ã©lÃ©ment du pattern dans la sÃ©rie et on ajoute l'offset de dÃ©part / fin correspondant Ã  la dÃ©finition du pattern
 			int start = matcher.start();
+			int b = pattern.getStart();
 			int end = matcher.end();
-			// On récupère l'offset de départ / fin correspondant à la définition du pattern
-			int patternStartOffset = pattern.getStart();
-			int patternEndOffset = pattern.getEnd();
+			int a = pattern.getEnd();
+
+			// S-OCCURENCE (i..j) - Identifies the occurence opf the pattern in a signature seq
+			System.out.println("s-occ: [" + start + "," + (end-1) + "] --> " + sig.subSequence(start, (end)));
 			
-			// On récupère la sous-série N trouvé par le regex en applicant les offsets
-			List<Integer> sublist = serie.subList(start+patternStartOffset, end+1-patternEndOffset); // +1 car le paramètre de fin de sublist est EXCLUSIF
+			// I-OCCURENCE (âš«) [(i + b)..j] - Identifies an occurence of a pattern in an input seq
+			System.out.println("i-occ: [" + (start+b) + "," + (end-1) + "] --> " + serie.subList(start + b, end) + "]");
+			
+			// E-OCCURENCE (âš«âšª) [[(i + b)..(j + 1 - a)]] - Used for computing the feature value of a pattern occurence
+			System.out.println("e-occ: [" + (start+b) + "," + (end+1-a-1) + "] --> " + serie.subList(start + b, end + 1 - a) + "]");
+
+			
+			// On rÃ©cupÃ¨re la sous-sÃ©rie N trouvÃ© par le regex en applicant les offsets
+			List<Integer> sublist = serie.subList(start + b, end + 1 - a); // +1 car le paramÃ¨tre de fin de sublist est EXCLUSIF
+			
+//			System.out.println(pattern.getName() + " : PatternPos: [" + start + "," + (end) + "]" + " --> "+ sublist.toString());
+			
 			results.add(sublist);
 		}
 		return results;
