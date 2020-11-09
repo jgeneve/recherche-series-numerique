@@ -9,7 +9,7 @@ import main.Feature;
 
 public class TestFeatures extends TestCase {
 
-	// WIDTH
+	// SURFACE
 	public void testSurfaceFeature() throws Exception {
 		List<List<Integer>> resultsPattern = new ArrayList<List<Integer>>();
 		resultsPattern.add(Arrays.asList(3,3));
@@ -40,14 +40,14 @@ public class TestFeatures extends TestCase {
 	}
 	
 	// WIDTH null
-		public void testWidthNull() throws Exception {
-			List<List<Integer>> resultsPattern = new ArrayList<List<Integer>>();
-			resultsPattern.add(Arrays.asList());
-			resultsPattern.add(Arrays.asList(3,5,6));
-			resultsPattern.add(Arrays.asList(3,3,3));	
-			
-			assertEquals(null, Feature.width(resultsPattern));
-		}
+//		public void testWidthNull() throws Exception {
+//			List<List<Integer>> resultsPattern = new ArrayList<List<Integer>>();
+//			resultsPattern.add(Arrays.asList());
+//			resultsPattern.add(Arrays.asList(3,5,6));
+//			resultsPattern.add(Arrays.asList(3,3,3));	
+//			
+//			assertEquals(null, Feature.width(resultsPattern));
+//		}
 	
 	
 	
