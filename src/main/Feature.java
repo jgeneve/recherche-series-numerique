@@ -8,7 +8,12 @@ import javax.lang.model.element.Modifier;
 
 public class Feature {
 
-	// ONE
+	/**
+	 * ONE: Renvoie le premier entier pour chaque tableau
+	 * 
+	 * @param resultsPattern 	la liste des listes d'entiers à analyser
+	 * @return					liste des premiers entiers pour les listes passées en entrée
+	 */
 	public static List<Integer> one(List<List<Integer>> resultsPattern) {
 		List<Integer> results = new ArrayList<>();
 		
@@ -18,7 +23,12 @@ public class Feature {
 		return results;
 	}
 	
-	// WIDTH
+	/**
+	 * WIDTH: Renvoie le nombre d'entiers pour chaque tableau
+	 * 
+	 * @param resultsPattern 	la liste des listes d'entiers à analyser
+	 * @return					liste des nombres d'entiers pour les listes passées en entrée
+	 */
 	public static List<Integer> width(List<List<Integer>> resultsPattern) {
 		List<Integer> results = new ArrayList<>();
 		
@@ -30,35 +40,13 @@ public class Feature {
 		
 		return results;
 	}
-
-	// HEIGHT
-//	public static List<Integer> height(List<List<Integer>> resultsPattern) {
-//		List<Integer> results = new ArrayList<>();
-//		Integer min, max, diff, height; 
-//		
-//		// Pour chaque pattern
-//		for (List<Integer> resultPattern : resultsPattern) {
-//			min = Integer.MAX_VALUE;
-//			max = Integer.MIN_VALUE;
-//			height = null;
-//			
-//			// Pour chaque value dans le pattern
-//			for (Integer val : resultPattern) {
-//				if (val > max) {
-//					max = val;
-//				}
-//				if (val < min) {
-//					min = val;
-//				}
-//			}
-//			height = max - min;
-//			results.add(height);
-//		}
-//		return results;
-//	}
 	
-	// SURFACE
-	// Additionne les valeurs de la serie dans le pattern
+	/**
+	 * SURF (surface): Renvoie la somme des entiers pour chaque tableau d'entiers
+	 * 
+	 * @param resultsPattern 	la liste des listes d'entiers à analyser
+	 * @return					sommes des entiers pour les listes passées en entrée
+	 */
 	public static List<Integer> surf(List<List<Integer>> resultsPattern) {
 		List<Integer> results = new ArrayList<>();
 		Integer surface; 
@@ -73,7 +61,13 @@ public class Feature {
 		return results;
 	}
 
-	// MAX
+	
+	/**
+	 * MAX: Renvoie l'entier le plus grand pour chaque tableau d'entiers
+	 * 
+	 * @param resultsPattern 	la liste des listes d'entiers à analyser
+	 * @return					listes des maximums pour les listes passées en entrée
+	 */
 	public static List<Integer> max(List<List<Integer>> resultsPattern) {
 		List<Integer> results = new ArrayList<>();
 		
@@ -90,7 +84,13 @@ public class Feature {
 		return results;
 	}
 	
-	// MIN
+	
+	/**
+	 * MIN: Renvoie l'entier le plus petit pour chaque tableau d'entiers
+	 * 
+	 * @param resultsPattern 	la liste des listes d'entiers à analyser
+	 * @return					listes des minimums pour les listes passées en entrée
+	 */
 	public static List<Integer> min(List<List<Integer>> resultsPattern) {
 		List<Integer> results = new ArrayList<>();
 		
@@ -107,21 +107,21 @@ public class Feature {
 		return results;
 	}
 	
-	// RANGE
-
-	// SURF - Attention surf doit prendre en compte une donnée du offset END
-//	public static List<Integer> surf(List<List<Integer>> resultsPattern) {
-//		List<Integer> surfResult = new ArrayList<>();
-//		
-//		Integer surf;
-//		for (List<Integer> serieInPattern : resultsPattern) {
-//			surf = 0;
-//			for (int value : serieInPattern) {
-//				surf = surf + value;
-//			}
-//			surfResult.add(surf);
-//		}
-//		return surfResult;
-//	}
-	
+	/**
+	 * RANGE: Renvoie la différence entre l'entier le plus grand et l'entier le plus petit pour chaque tableau d'entiers
+	 * 
+	 * @param resultsPattern 	la liste des listes d'entiers à analyser
+	 * @return 					liste des différences pour les listes
+	 */
+	public static List<Integer> range(List<List<Integer>> resultsPattern) {
+		List<Integer> results = new ArrayList<>();
+		
+		Integer firstValue, lastValue;
+		for (List<Integer> resultPattern : resultsPattern) {
+			firstValue = resultPattern.get(0);
+			lastValue = resultPattern.get(resultPattern.size()-1);
+			results.add(Math.abs(firstValue - lastValue));
+		}
+		return results;
+	}
 }

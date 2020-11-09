@@ -80,7 +80,7 @@ public class TestFeatures extends TestCase {
 		
 		assertEquals(expected, Feature.max(resultsPattern));
 	}
-	
+
 	// ONE
 	public void testOneFeature() throws Exception {
 		List<List<Integer>> resultsPattern = new ArrayList<List<Integer>>();
@@ -94,5 +94,20 @@ public class TestFeatures extends TestCase {
 		expected.add(8);		
 		
 		assertEquals(expected, Feature.one(resultsPattern));
+	}
+	
+	// RANGE
+	public void testRangeFeature() throws Exception {
+		List<List<Integer>> resultsPattern = new ArrayList<List<Integer>>();
+		resultsPattern.add(Arrays.asList(7,6,1));
+		resultsPattern.add(Arrays.asList(6,5,5,4,4,2));
+		resultsPattern.add(Arrays.asList(3,1));
+		
+		List<Integer> expected = new ArrayList<>();
+		expected.add(6);		
+		expected.add(4);		
+		expected.add(2);		
+		
+		assertEquals(expected, Feature.range(resultsPattern));
 	}
 }
