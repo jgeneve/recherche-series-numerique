@@ -3,7 +3,9 @@ package com.imt.seriesNumerique;
 import enums.PatternsEnum;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.*;
 
 public class SeriesNumerique {
     public static List<List<Integer>> applyPattern(PatternsEnum pattern, List<Integer> serie) {

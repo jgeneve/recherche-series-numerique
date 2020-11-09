@@ -1,10 +1,12 @@
 package enums;
 
 public enum FeaturesEnum {
-	WIDTH("width"), 
-	MIN("min"),
+	ONE("one"),
+	WIDTH("width"),
+	SURFACE("surface"),
 	MAX("max"),
-	ONE("one");
+	MIN("min"),
+	RANGE("range");
 	
 	private String name;
 	 

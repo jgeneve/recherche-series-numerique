@@ -8,6 +8,21 @@ import junit.framework.TestCase;
 import main.Feature;
 
 public class TestFeatures extends TestCase {
+
+	// WIDTH
+	public void testSurfaceFeature() throws Exception {
+		List<List<Integer>> resultsPattern = new ArrayList<List<Integer>>();
+		resultsPattern.add(Arrays.asList(3,3));
+		resultsPattern.add(Arrays.asList(3,5));
+		resultsPattern.add(Arrays.asList(3,3,3));
+		
+		List<Integer> expected = new ArrayList<>();
+		expected.add(6);		
+		expected.add(8);		
+		expected.add(9);		
+		
+		assertEquals(expected, Feature.surf(resultsPattern));
+	}
 	
 	// WIDTH
 	public void testWidthFeature() throws Exception {
@@ -24,7 +39,7 @@ public class TestFeatures extends TestCase {
 		assertEquals(expected, Feature.width(resultsPattern));
 	}
 	
-	// WIDTH
+	// WIDTH null
 		public void testWidthNull() throws Exception {
 			List<List<Integer>> resultsPattern = new ArrayList<List<Integer>>();
 			resultsPattern.add(Arrays.asList());
