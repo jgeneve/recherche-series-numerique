@@ -76,13 +76,13 @@ public class TestPatterns extends TestCase {
 
 	public void testIncreasingPattern() throws Exception {
 		List<List<Integer>> expected = new ArrayList<List<Integer>>();
-		expected.add(Arrays.asList(2,4));
-		expected.add(Arrays.asList(1,2));
-		expected.add(Arrays.asList(2,3));
+		expected.add(Arrays.asList(3,5));
+		expected.add(Arrays.asList(1,3));
 		expected.add(Arrays.asList(3,4));
+		expected.add(Arrays.asList(4,6));
 		expected.add(Arrays.asList(1,3));
 		
-		List<Integer> serie = Arrays.asList(3,2,4,4,2,1,1,2,2,3,4,4,3,1,3,3);
+		List<Integer> serie = Arrays.asList(4,3,5,5,2,1,1,3,3,4,6,6,3,1,3,3);
 
 		assertEquals(expected, Patterns.applyPattern(PatternsEnum.INCREASING, serie));
 	}

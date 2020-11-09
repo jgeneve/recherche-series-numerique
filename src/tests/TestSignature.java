@@ -3,6 +3,7 @@ package tests;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+
 import junit.framework.TestCase;
 import main.Patterns;
 

@@ -3,7 +3,7 @@ package enums;
 public enum FeaturesEnum {
 	ONE("one"),
 	WIDTH("width"),
-	SURFACE("surface"),
+	SURF("surf"),
 	MAX("max"),
 	MIN("min"),
 	RANGE("range");
