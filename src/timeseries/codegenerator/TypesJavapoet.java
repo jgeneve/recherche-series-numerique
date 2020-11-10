@@ -3,7 +3,6 @@ package timeseries.codegenerator;
 import java.util.List;
 
 import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 

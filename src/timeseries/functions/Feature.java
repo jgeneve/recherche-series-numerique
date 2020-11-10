@@ -3,16 +3,13 @@ package timeseries.functions;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.squareup.javapoet.*;
-import javax.lang.model.element.Modifier;
-
 public class Feature {
 
 	/**
 	 * ONE: Renvoie le premier entier pour chaque tableau
 	 * 
-	 * @param resultsPattern 	la liste des listes d'entiers à analyser
-	 * @return					liste des premiers entiers pour les listes passées en entrée
+	 * @param resultsPattern 	la liste des listes d'entiers ï¿½ analyser
+	 * @return					liste des premiers entiers pour les listes passï¿½es en entrï¿½e
 	 */
 	public static List<Integer> one(List<List<Integer>> resultsPattern) {
 		List<Integer> results = new ArrayList<>();
@@ -26,8 +23,8 @@ public class Feature {
 	/**
 	 * WIDTH: Renvoie le nombre d'entiers pour chaque tableau
 	 * 
-	 * @param resultsPattern 	la liste des listes d'entiers à analyser
-	 * @return					liste des nombres d'entiers pour les listes passées en entrée
+	 * @param resultsPattern 	la liste des listes d'entiers ï¿½ analyser
+	 * @return					liste des nombres d'entiers pour les listes passï¿½es en entrï¿½e
 	 */
 	public static List<Integer> width(List<List<Integer>> resultsPattern) {
 		List<Integer> results = new ArrayList<>();
@@ -44,8 +41,8 @@ public class Feature {
 	/**
 	 * SURF (surface): Renvoie la somme des entiers pour chaque tableau d'entiers
 	 * 
-	 * @param resultsPattern 	la liste des listes d'entiers à analyser
-	 * @return					sommes des entiers pour les listes passées en entrée
+	 * @param resultsPattern 	la liste des listes d'entiers ï¿½ analyser
+	 * @return					sommes des entiers pour les listes passï¿½es en entrï¿½e
 	 */
 	public static List<Integer> surf(List<List<Integer>> resultsPattern) {
 		List<Integer> results = new ArrayList<>();
@@ -65,8 +62,8 @@ public class Feature {
 	/**
 	 * MAX: Renvoie l'entier le plus grand pour chaque tableau d'entiers
 	 * 
-	 * @param resultsPattern 	la liste des listes d'entiers à analyser
-	 * @return					listes des maximums pour les listes passées en entrée
+	 * @param resultsPattern 	la liste des listes d'entiers ï¿½ analyser
+	 * @return					listes des maximums pour les listes passï¿½es en entrï¿½e
 	 */
 	public static List<Integer> max(List<List<Integer>> resultsPattern) {
 		List<Integer> results = new ArrayList<>();
@@ -88,8 +85,8 @@ public class Feature {
 	/**
 	 * MIN: Renvoie l'entier le plus petit pour chaque tableau d'entiers
 	 * 
-	 * @param resultsPattern 	la liste des listes d'entiers à analyser
-	 * @return					listes des minimums pour les listes passées en entrée
+	 * @param resultsPattern 	la liste des listes d'entiers ï¿½ analyser
+	 * @return					listes des minimums pour les listes passï¿½es en entrï¿½e
 	 */
 	public static List<Integer> min(List<List<Integer>> resultsPattern) {
 		List<Integer> results = new ArrayList<>();
@@ -108,10 +105,10 @@ public class Feature {
 	}
 	
 	/**
-	 * RANGE: Renvoie la différence entre l'entier le plus grand et l'entier le plus petit pour chaque tableau d'entiers
+	 * RANGE: Renvoie la diffï¿½rence entre l'entier le plus grand et l'entier le plus petit pour chaque tableau d'entiers
 	 * 
-	 * @param resultsPattern 	la liste des listes d'entiers à analyser
-	 * @return 					liste des différences pour les listes
+	 * @param resultsPattern 	la liste des listes d'entiers ï¿½ analyser
+	 * @return 					liste des diffï¿½rences pour les listes
 	 */
 	public static List<Integer> range(List<List<Integer>> resultsPattern) {
 		List<Integer> results = new ArrayList<>();
