@@ -1,10 +1,12 @@
-package enums;
+package timeseries.enums;
 
 public enum FeaturesEnum {
-	WIDTH("width"), 
-	MIN("min"),
+	ONE("one"),
+	WIDTH("width"),
+	SURF("surf"),
 	MAX("max"),
-	ONE("one");
+	MIN("min"),
+	RANGE("range");
 	
 	private String name;
 	 

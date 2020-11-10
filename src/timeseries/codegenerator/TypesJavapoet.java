@@ -1,4 +1,4 @@
-package javapoet;
+package timeseries.codegenerator;
 
 import java.util.List;
 
