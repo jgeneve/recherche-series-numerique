@@ -10,65 +10,60 @@ import java.util.List;
 import com.squareup.javapoet.*;
 import javax.lang.model.element.Modifier;
 
-import enums.PatternsEnum;
-import javapoet.AggregatorJavapoet;
-import javapoet.FeatureJavapoet;
-import javapoet.PatternJavapoet;
 import javapoet.TypesJavapoet;
 
 
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		// TEST PEAK REGEX
-//		List<Integer> serie = Arrays.asList(7,5,5,1,4,5,2,2,3,5,6,2,3,3,3,1);
-//		Integer result = min_width_peak(serie);		
-//		System.out.println(result);
 		
-		System.out.println("LETS GO");
-		// Use of Javapoet
+		// Variable de la génération de code
+		Path   genPath = Paths.get("src");
+		String genPackageName = "com.imt.seriesNumerique";
+		String genClassName = "GeneratedConstraints";
+
+		// Liste des aggregators, features et patterns que l'on veut générer
+		List<String> contraint_aggregators = Arrays.asList("min", "max");
+		List<String> contraint_features = Arrays.asList("one", "width", "surf", "max", "min", "range");
+		List<String> contraint_patterns = Arrays.asList("peak", "bump_on_decreasing_sequence", "decreasing", "decreasing_sequence", "decreasing_terrace", "dip_on_increasing_sequence", "gorge", "increasing", "increasing_sequence", "increasing_terrace", "inflexion", "plain", "plateau", "proper_plain", "proper_plateau", "steady", "steady_sequence", "strictly_decreasing_sequence", "strictly_increasing_sequence", "summit", "valley", "zigzag");
 		
+		// Affichage
+		Integer nbMethods = contraint_aggregators.size() * contraint_features.size() * contraint_patterns.size();
+		System.out.println("Génération du code java pour " + nbMethods.toString() + " methodes");
+
+		// Generate contraint methods
+		List<MethodSpec> methodsToGenerate = new ArrayList<>();
+				
+		// Pour chaque aggregateur, feature, pattern
+		for (String aggregator : contraint_aggregators) {
+			for (String feature : contraint_features) {
+				for (String pattern : contraint_patterns) {
+					methodsToGenerate.add(MethodSpec
+							  .methodBuilder(aggregator + "_"+ feature + "_" + pattern)
+							  .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+							  .addParameter(TypesJavapoet.ListInteger, "serie")
+							  .addStatement("List<List<Integer>> resultsPattern = Patterns.applyPattern(PatternsEnum." + pattern.toUpperCase() + ", serie)")
+							  .addStatement("List<Integer> resultsFeature = Feature."+ feature +"(resultsPattern)")
+							  .addStatement("Integer resultAggregator = Aggregator."+ aggregator +"(resultsFeature)")
+							  .addStatement("return resultAggregator")
+							  .returns(Integer.class)
+							  .build());
+				}
+			}
+		}
 		
-		String pattern = "PEAK";
-		String feature = "width";
-		String aggregator = "min";
-		
-		MethodSpec method = MethodSpec
-				  .methodBuilder(aggregator+"_"+feature+"_"+pattern.toLowerCase())
-				  .addParameter(TypesJavapoet.ListInteger, "serie")
-				  .addStatement("List<List<Integer>> resultsPattern = applyPattern(PatternsEnum."+pattern+", serie)")
-				  .addStatement("List<Integer> resultsFeature = "+feature+"(resultsPattern)")
-				  .addStatement("Integer resultAggregator = "+aggregator+"(resultsFeature)")
-				  .addStatement("return resultAggregator")
-				  .returns(Integer.class)
-				  .build();
-		
-		
+		// Generation de la classes et ajout de ses methodes
 		TypeSpec seriesNumerique = TypeSpec
-				  .classBuilder("SeriesNumerique")
+				  .classBuilder(genClassName)
 				  .addModifiers(Modifier.PUBLIC)
-				  .addMethod(PatternJavapoet.applyPattern)
-				  .addMethod(PatternJavapoet.getSignature)
-				  .addMethod(FeatureJavapoet.width)
-				  .addMethod(AggregatorJavapoet.min)
-				  .addMethod(method)
+				  .addMethods(methodsToGenerate)
 				  .build();
 		
-		JavaFile javaFile = JavaFile
-				  .builder("com.imt.seriesNumerique", seriesNumerique)
-				  .indent("    ")
-				  .build();
+		JavaFile javaFile = JavaFile.builder(genPackageName, seriesNumerique).indent("    ").build();
+		javaFile.writeTo(genPath);
 		
-		Path path = Paths.get("src");
-		javaFile.writeTo(path);
+		// Affichage
+		System.out.println("Fin - méthodes générées dans '" + genPath + "/" + genClassName + ".java'");
 	}
-	
-	
-	//TODO remove
-	public static Integer min_width_peak(List<Integer> serie) {
-		List<List<Integer>> resultsPattern = Patterns.applyPattern(PatternsEnum.PEAK, serie);
-		List<Integer> resultsFeature = Feature.width(resultsPattern);
-		Integer resultAggregator = Aggregator.min(resultsFeature);
-		return resultAggregator;
-	}
+
 }

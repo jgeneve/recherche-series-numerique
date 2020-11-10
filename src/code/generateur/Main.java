@@ -42,9 +42,9 @@ public class Main {
 							  .methodBuilder(aggregator + "_"+ feature + "_" + pattern)
 							  .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
 							  .addParameter(TypesJavapoet.ListInteger, "serie")
-							  .addStatement("List<List<Integer>> resultsPattern = Patterns.applyPattern(PatternsEnum." + pattern.toUpperCase() + ", serie)")
-							  .addStatement("List<Integer> resultsFeature = Feature."+ feature +"(resultsPattern)")
-							  .addStatement("Integer resultAggregator = Aggregator."+ aggregator +"(resultsFeature)")
+							  .addStatement("List<List<Integer>> resultsPattern = applyPattern(" + pattern.toUpperCase() + ", serie)")
+							  .addStatement("List<Integer> resultsFeature = "+ feature +"(resultsPattern)")
+							  .addStatement("Integer resultAggregator = "+ aggregator +"(resultsFeature)")
 							  .addStatement("return resultAggregator")
 							  .returns(Integer.class)
 							  .build());
@@ -58,8 +58,20 @@ public class Main {
 				  .addModifiers(Modifier.PUBLIC)
 				  .addMethods(methodsToGenerate)
 				  .build();
+
+		ClassName classEnumPattern = ClassName.get("enums", "PatternsEnum");
+		ClassName classPatterns = ClassName.get("main", "Patterns");
+		ClassName classFeature = ClassName.get("main", "Feature");
+		ClassName classAggregator = ClassName.get("main", "Aggregator");
 		
-		JavaFile javaFile = JavaFile.builder(genPackageName, seriesNumerique).indent("    ").build();
+		JavaFile javaFile = JavaFile
+				.builder(genPackageName, seriesNumerique)
+				.indent("    ")
+				.addStaticImport(classEnumPattern, "*")
+				.addStaticImport(classPatterns, "*")
+				.addStaticImport(classFeature, "*")
+				.addStaticImport(classAggregator, "*")
+				.build();
 		javaFile.writeTo(genPath);
 		
 		// Affichage
