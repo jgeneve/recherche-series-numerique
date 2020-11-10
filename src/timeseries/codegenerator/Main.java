@@ -1,4 +1,4 @@
-package code.generateur;
+package timeseries.codegenerator;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -10,8 +10,6 @@ import java.util.List;
 import com.squareup.javapoet.*;
 import javax.lang.model.element.Modifier;
 
-import javapoet.TypesJavapoet;
-
 
 public class Main {
 
@@ -19,8 +17,8 @@ public class Main {
 		
 		// Variable de la génération de code
 		Path   genPath = Paths.get("src");
-		String genPackageName = "com.imt.seriesNumerique";
-		String genClassName = "GeneratedConstraints";
+		String genPackageName = "timeseries.constraints";
+		String genClassName = "TimeSeriesConstraints";
 
 		// Liste des aggregators, features et patterns que l'on veut générer
 		List<String> contraint_aggregators = Arrays.asList("min", "max");
@@ -59,10 +57,10 @@ public class Main {
 				  .addMethods(methodsToGenerate)
 				  .build();
 
-		ClassName classEnumPattern = ClassName.get("enums", "PatternsEnum");
-		ClassName classPatterns = ClassName.get("main", "Patterns");
-		ClassName classFeature = ClassName.get("main", "Feature");
-		ClassName classAggregator = ClassName.get("main", "Aggregator");
+		ClassName classEnumPattern = ClassName.get("timeseries.enums", "PatternsEnum");
+		ClassName classPatterns = ClassName.get("timeseries.functions", "Patterns");
+		ClassName classFeature = ClassName.get("timeseries.functions", "Feature");
+		ClassName classAggregator = ClassName.get("timeseries.functions", "Aggregator");
 		
 		JavaFile javaFile = JavaFile
 				.builder(genPackageName, seriesNumerique)
@@ -75,7 +73,7 @@ public class Main {
 		javaFile.writeTo(genPath);
 		
 		// Affichage
-		System.out.println("Fin - méthodes générées dans '" + genPath + "/" + genClassName + ".java'");
+		System.out.println("Fin - méthodes générées dans '" + genPath + "/" + genPackageName + "/"+ genClassName + ".java'");
 	}
 
 }

@@ -1,10 +1,10 @@
-package tests;
+package timeseries.tests;
 
 import java.util.Arrays;
 import java.util.List;
 
 import junit.framework.TestCase;
-import main.Aggregator;
+import timeseries.functions.Aggregator;
 
 
 public class TestAggregators extends TestCase {

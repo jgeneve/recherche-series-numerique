@@ -1,11 +1,11 @@
-package main;
+package timeseries.functions;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import enums.PatternsEnum;
+import timeseries.enums.PatternsEnum;
 
 public class Patterns { 
 	
@@ -22,7 +22,8 @@ public class Patterns {
 		List<List<Integer>> results = new ArrayList<List<Integer>>();
 		
 		// Pour chaque pattern trouvé dans la série
-		while(matcher.find()) {
+		int i =0;
+		while(matcher.find(i)) {
 			// On récupère la position du premier / dernier élément du pattern dans la série et on ajoute l'offset de départ / fin correspondant à la définition du pattern
 			int start = matcher.start();
 			int b = pattern.getStart();
@@ -45,6 +46,7 @@ public class Patterns {
 //			System.out.println(pattern.getName() + " : PatternPos: [" + start + "," + (end) + "]" + " --> "+ sublist.toString());
 			
 			results.add(sublist);
+			i = matcher.end() - b;
 		}
 		return results;
 	}

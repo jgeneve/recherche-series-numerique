@@ -1,12 +1,12 @@
-package tests;
+package timeseries.tests;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import enums.PatternsEnum;
 import junit.framework.TestCase;
-import main.Patterns;
+import timeseries.enums.PatternsEnum;
+import timeseries.functions.Patterns;
 
 public class TestPatterns extends TestCase {
 
@@ -66,8 +66,8 @@ public class TestPatterns extends TestCase {
 	
 	public void testGorgePattern() throws Exception {
 		List<List<Integer>> expected = new ArrayList<List<Integer>>();
-		expected.add(Arrays.asList(1,2,2,3));
-		expected.add(Arrays.asList(2,1,2,3,4));
+		expected.add(Arrays.asList(1,2,2));
+		expected.add(Arrays.asList(2,1,2,3));
 		
 		List<Integer> serie = Arrays.asList(1,3,1,2,2,3,3,2,1,1,3,2,1,2,3,4);
 

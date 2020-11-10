@@ -1,11 +1,10 @@
-package tests;
+package timeseries.tests;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
 import junit.framework.TestCase;
-import main.Patterns;
+import timeseries.functions.Patterns;
 
 public class TestSignature extends TestCase {
 

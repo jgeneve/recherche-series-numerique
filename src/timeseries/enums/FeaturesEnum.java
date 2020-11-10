@@ -1,4 +1,4 @@
-package enums;
+package timeseries.enums;
 
 public enum FeaturesEnum {
 	ONE("one"),

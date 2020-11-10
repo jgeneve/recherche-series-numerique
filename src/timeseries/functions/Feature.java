@@ -1,4 +1,4 @@
-package main;
+package timeseries.functions;
 
 import java.util.ArrayList;
 import java.util.List;

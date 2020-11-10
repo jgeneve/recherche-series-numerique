@@ -1,11 +1,11 @@
-package tests;
+package timeseries.tests;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import junit.framework.TestCase;
-import main.Feature;
+import timeseries.functions.Feature;
 
 public class TestFeatures extends TestCase {
 

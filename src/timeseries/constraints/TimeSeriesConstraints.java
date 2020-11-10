@@ -1,14 +1,14 @@
-package com.imt.seriesNumerique;
+package timeseries.constraints;
 
-import static enums.PatternsEnum.*;
-import static main.Aggregator.*;
-import static main.Feature.*;
-import static main.Patterns.*;
+import static timeseries.enums.PatternsEnum.*;
+import static timeseries.functions.Aggregator.*;
+import static timeseries.functions.Feature.*;
+import static timeseries.functions.Patterns.*;
 
 import java.lang.Integer;
 import java.util.List;
 
-public class GeneratedConstraints {
+public class TimeSeriesConstraints {
     public static Integer min_one_peak(List<Integer> serie) {
         List<List<Integer>> resultsPattern = applyPattern(PEAK, serie);
         List<Integer> resultsFeature = one(resultsPattern);
