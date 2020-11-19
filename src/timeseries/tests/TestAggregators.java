@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import junit.framework.TestCase;
+import results.objects.AggregatorResult;
+import results.objects.FeatureResult;
 import timeseries.functions.Aggregator;
 
 
@@ -11,15 +13,30 @@ public class TestAggregators extends TestCase {
 	
 	// TEST AGGREGATORS
 	public void test_MIN_Aggregator() throws Exception {
-		List<Integer> features = Arrays.asList(3,4,6,3);
-		Integer expected = 3;
-		assertEquals(expected, Aggregator.min(features));
+
+		// INPUT (featureResult)
+		List<Integer> seriesInFeature = Arrays.asList(2,1,4);
+		List<Integer> posSerieInFeature = Arrays.asList(0,4,9);
+		FeatureResult input = new FeatureResult(seriesInFeature, posSerieInFeature);
+		
+		// EXPECTED
+		AggregatorResult expected = new AggregatorResult(1, Arrays.asList(4));
+		
+		assertEquals(expected, Aggregator.min(input));
 	}
 
+	// TEST AGGREGATORS
 	public void test_MAX_Aggregator() throws Exception {
-		List<Integer> features = Arrays.asList(3,4,6,3);
-		Integer expected = 6;
-		assertEquals(expected, Aggregator.max(features));
+
+		// INPUT (featureResult)
+		List<Integer> seriesInFeature = Arrays.asList(4,1,4);
+		List<Integer> posSerieInFeature = Arrays.asList(0,4,9);
+		FeatureResult input = new FeatureResult(seriesInFeature, posSerieInFeature);
+		
+		// EXPECTED
+		AggregatorResult expected = new AggregatorResult(4, Arrays.asList(0,9));
+		
+		assertEquals(expected, Aggregator.max(input));
 	}
 	
 	// TEST AGGREGATORS ERRORS

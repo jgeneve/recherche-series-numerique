@@ -20,8 +20,9 @@ public class Test_AGG_FEA_PAT extends TestCase {
 	public void test_min_max_peak() throws Exception {
 		// CONSTRAINT PAGE 1672
 		List<Integer> input = Arrays.asList(7,5,5,1,4,5,2,2,3,5,6,2,3,3,3,1);
-		Integer expected = 3;
-		assertEquals(expected, TimeSeriesConstraints.min_max_peak(input));
+		Integer expectedVal = 3;
+		
+		assertEquals(expectedVal, TimeSeriesConstraints.min_max_peak(input));
 	}
 	
 	public void test_min_max_increasing() throws Exception {
@@ -46,7 +47,6 @@ public class Test_AGG_FEA_PAT extends TestCase {
 	}
 
 	public void test_max_range_decreasing() throws Exception {
-		// CONSTRAINT PAGE 1360
 		List<Integer> input = Arrays.asList(3,4,2,2,5,6,6,4,4,3,1,1,4,6,4,4);
 		Integer expected = 2;
 		assertEquals(expected, TimeSeriesConstraints.max_range_decreasing(input));

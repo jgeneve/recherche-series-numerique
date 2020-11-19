@@ -1,15 +1,17 @@
 package timeseries.functions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import results.objects.PatternResult;
 import timeseries.enums.PatternsEnum;
 
 public class Patterns { 
 	
-	public static List<List<Integer>> applyPattern(PatternsEnum pattern, List<Integer> serie) {
+	public static PatternResult applyPattern(PatternsEnum pattern, List<Integer> serie) {
 		// On transforme la liste d'integer en signature
 		String sig = getSignature(serie);
 		
@@ -19,7 +21,10 @@ public class Patterns {
 		System.out.println("====> " + pattern.getName());
 		System.out.println(serie.toString());
 		System.out.println(sig.toString());
+		
 		List<List<Integer>> results = new ArrayList<List<Integer>>();
+		List<List<Integer>> posResults = new ArrayList<List<Integer>>();
+		List<Integer> indexes = genIndexes(serie.size());
 		
 		// Pour chaque pattern trouvé dans la série
 		int i =0;
@@ -46,11 +51,14 @@ public class Patterns {
 //			System.out.println(pattern.getName() + " : PatternPos: [" + start + "," + (end) + "]" + " --> "+ sublist.toString());
 			
 			results.add(sublist);
+			posResults.add(indexes.subList(start + b, end + 1 - a));
 			i = matcher.end() - b;
 		}
-		return results;
+		
+		
+		return new PatternResult(results, posResults);
 	}
-	
+
 	public static String getSignature(List<Integer> serie) {
         String res = "";
         for (int i = 1; i < serie.size(); i++) {
@@ -61,6 +69,14 @@ public class Patterns {
             } else {
                 res += "=";
             }
+        }
+        return res;
+    }
+	
+	private static List<Integer> genIndexes(Integer size) {
+		List<Integer> res = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+        	res.add(i);
         }
         return res;
     }
