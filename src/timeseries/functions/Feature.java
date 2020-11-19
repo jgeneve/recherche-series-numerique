@@ -1,124 +1,160 @@
 package timeseries.functions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import results.objects.FeatureResult;
+import results.objects.PatternResult;
 
 public class Feature {
 
-	/**
-	 * ONE: Renvoie le premier entier pour chaque tableau
-	 * 
-	 * @param resultsPattern 	la liste des listes d'entiers � analyser
-	 * @return					liste des premiers entiers pour les listes pass�es en entr�e
-	 */
-	public static List<Integer> one(List<List<Integer>> resultsPattern) {
-		List<Integer> results = new ArrayList<>();
+
+	public static FeatureResult one(PatternResult patternResult) {
+		List<Integer> patRes = new ArrayList<Integer>();
+		List<Integer> patPos = new ArrayList<Integer>();
+
+		List<List<Integer>> patternMatch = patternResult.getSeriesInPattern();
+		List<List<Integer>> patternPosMatch = patternResult.getPosSeriesInPattern();
 		
-		for (List<Integer> resultPattern : resultsPattern) {
-			results.add(resultPattern.get(0));
-		}
-		return results;
-	}
-	
-	/**
-	 * WIDTH: Renvoie le nombre d'entiers pour chaque tableau
-	 * 
-	 * @param resultsPattern 	la liste des listes d'entiers � analyser
-	 * @return					liste des nombres d'entiers pour les listes pass�es en entr�e
-	 */
-	public static List<Integer> width(List<List<Integer>> resultsPattern) {
 		List<Integer> results = new ArrayList<>();
+		List<Integer> posResults = new ArrayList<>();
 		
-		Integer listSize; 
-		for (List<Integer> resultPattern : resultsPattern) {
-			listSize = resultPattern.size();
-			results.add(listSize);
+		for (int i = 0; i < patternMatch.size(); i++) {
+			results.add(patternMatch.get(i).get(0));
+			posResults.add(patternPosMatch.get(i).get(0));
 		}
 		
-		return results;
+		return new FeatureResult(results, posResults);
 	}
 	
-	/**
-	 * SURF (surface): Renvoie la somme des entiers pour chaque tableau d'entiers
-	 * 
-	 * @param resultsPattern 	la liste des listes d'entiers � analyser
-	 * @return					sommes des entiers pour les listes pass�es en entr�e
-	 */
-	public static List<Integer> surf(List<List<Integer>> resultsPattern) {
-		List<Integer> results = new ArrayList<>();
-		Integer surface; 
+	
+	public static FeatureResult width(PatternResult resultsPattern) {
+		List<Integer> patRes = new ArrayList<Integer>();
+		List<Integer> patPos = new ArrayList<Integer>();
+
+		List<List<Integer>> patternMatch = resultsPattern.getSeriesInPattern();
+		List<List<Integer>> patternPosMatch = resultsPattern.getPosSeriesInPattern();
 		
-		for (List<Integer> resultPattern : resultsPattern) {
-			surface = 0;
-			for (Integer val : resultPattern) {
-				surface = surface + val;
+		List<Integer> results = new ArrayList<>();
+		List<Integer> posResults = new ArrayList<>();
+		
+		for (int i = 0; i < patternMatch.size(); i++) {
+			results.add(patternMatch.get(i).size());
+			posResults.add(patternPosMatch.get(i).get(0));
+		}
+		
+		return new FeatureResult(results, posResults);
+	}
+	
+	
+	public static FeatureResult surf(PatternResult resultsPattern) {
+		List<Integer> patRes = new ArrayList<Integer>();
+		List<Integer> patPos = new ArrayList<Integer>();
+
+		List<List<Integer>> patternMatch = resultsPattern.getSeriesInPattern();
+		List<List<Integer>> patternPosMatch = resultsPattern.getPosSeriesInPattern();
+		
+		List<Integer> results = new ArrayList<>();
+		List<Integer> posResults = new ArrayList<>();
+		
+		for (int i = 0; i < patternMatch.size(); i++) {
+			Integer sum = 0;
+			// Sum of value in pattern
+			for (int j = 0; j < patternMatch.get(i).size(); j++) {
+				sum += patternMatch.get(i).get(j);
 			}
-			results.add(surface);
+			results.add(sum);
+			posResults.add(patternPosMatch.get(i).get(0));
 		}
-		return results;
+		
+		return new FeatureResult(results, posResults);
 	}
 
 	
-	/**
-	 * MAX: Renvoie l'entier le plus grand pour chaque tableau d'entiers
-	 * 
-	 * @param resultsPattern 	la liste des listes d'entiers � analyser
-	 * @return					listes des maximums pour les listes pass�es en entr�e
-	 */
-	public static List<Integer> max(List<List<Integer>> resultsPattern) {
-		List<Integer> results = new ArrayList<>();
+	public static FeatureResult max(PatternResult resultsPattern) {
+		List<Integer> patRes = new ArrayList<Integer>();
+		List<Integer> patPos = new ArrayList<Integer>();
+
+		List<List<Integer>> patternMatch = resultsPattern.getSeriesInPattern();
+		List<List<Integer>> patternPosMatch = resultsPattern.getPosSeriesInPattern();
 		
-		Integer max;
-		for (List<Integer> resultPattern : resultsPattern) {
-			max = Integer.MIN_VALUE;
-			for (int value : resultPattern) {
-				if (value > max) {
-					max = value;
+		List<Integer> results = new ArrayList<>();
+		List<Integer> posResults = new ArrayList<>();
+		
+		for (int i = 0; i < patternMatch.size(); i++) {
+			Integer max = Integer.MIN_VALUE;
+			Integer posMax = 0;
+			// Sum of value in pattern
+			for (int j = 0; j < patternMatch.get(i).size(); j++) {
+				if (patternMatch.get(i).get(j) >= max) {
+					max = patternMatch.get(i).get(j);
+					posMax = patternPosMatch.get(i).get(j);
 				}
 			}
 			results.add(max);
+			posResults.add(posMax);
 		}
-		return results;
+		
+		return new FeatureResult(results, posResults);
 	}
 	
 	
-	/**
-	 * MIN: Renvoie l'entier le plus petit pour chaque tableau d'entiers
-	 * 
-	 * @param resultsPattern 	la liste des listes d'entiers � analyser
-	 * @return					listes des minimums pour les listes pass�es en entr�e
-	 */
-	public static List<Integer> min(List<List<Integer>> resultsPattern) {
-		List<Integer> results = new ArrayList<>();
+	public static FeatureResult min(PatternResult resultsPattern) {
+		List<Integer> patRes = new ArrayList<Integer>();
+		List<Integer> patPos = new ArrayList<Integer>();
+
+		List<List<Integer>> patternMatch = resultsPattern.getSeriesInPattern();
+		List<List<Integer>> patternPosMatch = resultsPattern.getPosSeriesInPattern();
 		
-		Integer min;
-		for (List<Integer> resultPattern : resultsPattern) {
-			min = Integer.MAX_VALUE;
-			for (int value : resultPattern) {
-				if (value < min) {
-					min = value;
+		List<Integer> results = new ArrayList<>();
+		List<Integer> posResults = new ArrayList<>();
+		
+		for (int i = 0; i < patternMatch.size(); i++) {
+			Integer min = Integer.MAX_VALUE;
+			Integer posMin = 0;
+			// Sum of value in pattern
+			for (int j = 0; j < patternMatch.get(i).size(); j++) {
+				if (patternMatch.get(i).get(j) <= min) {
+					min = patternMatch.get(i).get(j);
+					posMin = patternPosMatch.get(i).get(j);
 				}
 			}
 			results.add(min);
+			posResults.add(posMin);
 		}
-		return results;
-	}
-	
-	/**
-	 * RANGE: Renvoie la diff�rence entre l'entier le plus grand et l'entier le plus petit pour chaque tableau d'entiers
-	 * 
-	 * @param resultsPattern 	la liste des listes d'entiers � analyser
-	 * @return 					liste des diff�rences pour les listes
-	 */
-	public static List<Integer> range(List<List<Integer>> resultsPattern) {
-		List<Integer> results = new ArrayList<>();
 		
-		Integer firstValue, lastValue;
-		for (List<Integer> resultPattern : resultsPattern) {
-			firstValue = resultPattern.get(0);
-			lastValue = resultPattern.get(resultPattern.size()-1);
-			results.add(Math.abs(firstValue - lastValue));
+		return new FeatureResult(results, posResults);
+	}
+
+	
+	public static FeatureResult range(PatternResult resultsPattern) {
+		List<Integer> patRes = new ArrayList<Integer>();
+		List<Integer> patPos = new ArrayList<Integer>();
+
+		List<List<Integer>> patternMatch = resultsPattern.getSeriesInPattern();
+		List<List<Integer>> patternPosMatch = resultsPattern.getPosSeriesInPattern();
+		
+		List<Integer> results = new ArrayList<>();
+		List<Integer> posResults = new ArrayList<>();
+		
+		for (int i = 0; i < patternMatch.size(); i++) {
+			Integer min = Integer.MAX_VALUE;
+			Integer max = Integer.MIN_VALUE;
+			
+			// Sum of value in pattern
+			for (int j = 0; j < patternMatch.get(i).size(); j++) {
+				if (patternMatch.get(i).get(j) < min) {
+					min = patternMatch.get(i).get(j);
+				}
+				if (patternMatch.get(i).get(j) > max) {
+					max = patternMatch.get(i).get(j);
+				}
+			}
+			results.add(max-min);
+			posResults.add(patternPosMatch.get(i).get(0));
 		}
-		return results;
+		
+		return new FeatureResult(results, posResults);
 	}
 }

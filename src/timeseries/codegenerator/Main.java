@@ -1,5 +1,10 @@
 package timeseries.codegenerator;
 
+import static timeseries.enums.PatternsEnum.DECREASING;
+import static timeseries.functions.Aggregator.min;
+import static timeseries.functions.Feature.one;
+import static timeseries.functions.Patterns.applyPattern;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -8,6 +13,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.squareup.javapoet.*;
+
+import results.objects.AggregatorResult;
+import results.objects.FeatureResult;
+import results.objects.PatternResult;
+import timeseries.enums.AggregatorsEnum;
+import timeseries.enums.FeaturesEnum;
+import timeseries.enums.PatternsEnum;
+
 import javax.lang.model.element.Modifier;
 
 
@@ -21,31 +34,50 @@ public class Main {
 		String genClassName = "TimeSeriesConstraints";
 
 		// Liste des aggregators, features et patterns que l'on veut générer
-		List<String> contraint_aggregators = Arrays.asList("min", "max");
-		List<String> contraint_features = Arrays.asList("one", "width", "surf", "max", "min", "range");
-		List<String> contraint_patterns = Arrays.asList("peak", "bump_on_decreasing_sequence", "decreasing", "decreasing_sequence", "decreasing_terrace", "dip_on_increasing_sequence", "gorge", "increasing", "increasing_sequence", "increasing_terrace", "inflexion", "plain", "plateau", "proper_plain", "proper_plateau", "steady", "steady_sequence", "strictly_decreasing_sequence", "strictly_increasing_sequence", "summit", "valley", "zigzag");
+		AggregatorsEnum[] contraint_aggregators = AggregatorsEnum.values();
+		FeaturesEnum[] contraint_features = FeaturesEnum.values();
+		PatternsEnum[] contraint_patterns = PatternsEnum.values();
 		
 		// Affichage
-		Integer nbMethods = contraint_aggregators.size() * contraint_features.size() * contraint_patterns.size();
+		Integer nbMethods = contraint_aggregators.length * contraint_features.length * contraint_patterns.length;
 		System.out.println("Génération du code java pour " + nbMethods.toString() + " methodes");
 
 		// Generate contraint methods
 		List<MethodSpec> methodsToGenerate = new ArrayList<>();
-				
+			
+		
+	    
 		// Pour chaque aggregateur, feature, pattern
-		for (String aggregator : contraint_aggregators) {
-			for (String feature : contraint_features) {
-				for (String pattern : contraint_patterns) {
+		for (AggregatorsEnum a : contraint_aggregators) {
+			for (FeaturesEnum f : contraint_features) {
+				for (PatternsEnum p : contraint_patterns) {
+					
+					String aggregator = a.getName();
+					String feature = f.getName();
+					String pattern = p.getName();
+					
+					// Genere la methode "agg_fea_pat"
 					methodsToGenerate.add(MethodSpec
 							  .methodBuilder(aggregator + "_"+ feature + "_" + pattern)
 							  .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
 							  .addParameter(TypesJavapoet.ListInteger, "serie")
-							  .addStatement("List<List<Integer>> resultsPattern = applyPattern(" + pattern.toUpperCase() + ", serie)")
-							  .addStatement("List<Integer> resultsFeature = "+ feature +"(resultsPattern)")
-							  .addStatement("Integer resultAggregator = "+ aggregator +"(resultsFeature)")
-							  .addStatement("return resultAggregator")
+							  .addStatement("AggregatorResult resultAggregator = "+ aggregator +"("+ feature + "(applyPattern(" + pattern.toUpperCase() + ", serie)))")
+							  .addStatement("return resultAggregator.getValue()")
 							  .returns(Integer.class)
 							  .build());
+					
+					// Genere la methode "pos_agg_fea_pat" uniquement si la feature n'est pas une constante feature
+					if (!f.isConstantFeature()) {
+						methodsToGenerate.add(MethodSpec
+								  .methodBuilder("pos_" + aggregator + "_"+ feature + "_" + pattern)
+								  .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+								  .addParameter(TypesJavapoet.ListInteger, "serie")
+								  .addStatement("AggregatorResult resultAggregator = "+ aggregator +"("+ feature + "(applyPattern(" + pattern.toUpperCase() + ", serie)))")
+								  .addStatement("return resultAggregator")
+								  .returns(AggregatorResult.class)
+								  .build());
+					}
+					
 				}
 			}
 		}
